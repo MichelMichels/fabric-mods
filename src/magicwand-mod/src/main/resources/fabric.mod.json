@@ -1,0 +1,42 @@
+{
+	"schemaVersion": 1,
+	"id": "magicwand-mod",
+	"version": "${version}",
+	"name": "Magic wand mod",
+	"description": "By Michel Michels",
+	"authors": [
+		"Michel Michels"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/magicwand-mod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"ls.miche.minecraft.ExampleMod",
+			"ls.miche.minecraft.MagicWandMod"
+		],
+		"client": [
+			"ls.miche.minecraft.ExampleModClient"
+		]
+	},
+	"mixins": [
+		"magicwand-mod.mixins.json",
+		{
+			"config": "magicwand-mod.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.0",
+		"minecraft": "~1.20.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

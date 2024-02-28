@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "magicwand-mod:block/marker_block"
+    }
+  }
+}
