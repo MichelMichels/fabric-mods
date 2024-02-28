@@ -24,26 +24,21 @@ public class ExampleMod implements ModInitializer {
 	public static final Item WAND = new Wand(new FabricItemSettings());
 
 	// Blocks
-	public static final Block MARKER_BLOCK  = new Block(FabricBlockSettings.create().noCollision().nonOpaque().strength(0f));
 
 	// Methods
 	@Override
 	public void onInitialize() {
 		logStartupMessage();
-		registerBlocks();
 		registerItems();
 	}
 
 	private void logStartupMessage() {
 		LOGGER.info("This is the first mod by Michel Michels");
 	}
-	private void registerBlocks() {
-		Registry.register(Registries.BLOCK, new Identifier("first-mod", "marker_block"), MARKER_BLOCK);
-		Registry.register(Registries.ITEM, new Identifier("first-mod", "marker_block"), new BlockItem(MARKER_BLOCK, new FabricItemSettings()));
-	}
+
 	private void registerItems() {
-		Registry.register(Registries.ITEM, new Identifier("first-mod", "cross"), CROSS);
-		Registry.register(Registries.ITEM, new Identifier("first-mod", "checkmark"), CHECKMARK);
-		Registry.register(Registries.ITEM, new Identifier("first-mod", "wand"), WAND);
+		Registry.register(Registries.ITEM, new Identifier("magicwand-mod", "cross"), CROSS);
+		Registry.register(Registries.ITEM, new Identifier("magicwand-mod", "checkmark"), CHECKMARK);
+		Registry.register(Registries.ITEM, new Identifier("magicwand-mod", "wand"), WAND);
 	}
 }

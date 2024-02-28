@@ -7,6 +7,6 @@ import net.minecraft.client.render.RenderLayer;
 public class ExampleModClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		BlockRenderLayerMap.INSTANCE.putBlock(ExampleMod.MARKER_BLOCK, RenderLayer.getTranslucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(MagicWandMod.MARKER_BLOCK, RenderLayer.getTranslucent());
 	}
 }
