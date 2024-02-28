@@ -20,7 +20,7 @@ public class MarkerBlock extends Block {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
-            player.sendMessage(Text.literal("Hello, wordl!"), false);
+            player.sendMessage(Text.literal("Hello, world!"), false);
         }
 
         return ActionResult.SUCCESS;
