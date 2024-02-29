@@ -2,6 +2,9 @@ package ls.miche.minecraft;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,6 +21,7 @@ import java.util.List;
 
 public class Wand extends Item {
     private static CircleBlockPosGenerator circleBlockPosGenerator = new CircleBlockPosGenerator();
+    private static StructureManager structureManager = new StructureManager();
 
     public Wand(Settings settings)
     {
@@ -33,17 +37,34 @@ public class Wand extends Item {
 
         BlockPos playerPosition =  playerEntity.getBlockPos();
 
-        Direction direction = playerEntity.getHorizontalFacing();
-
         int radius = 16;
 
-        //for (int i = 0; i < 25; i++) {
-            List<BlockPos> positions = circleBlockPosGenerator.generateBlockPositions(playerPosition.getX(), playerPosition.getY(), playerPosition.getZ(), radius);
-            for(BlockPos pos : positions) {
-                world.setBlockState(pos, MagicWandMod.MARKER_BLOCK.getDefaultState());
-            }
-        //}
+        List<BlockPos> positions = circleBlockPosGenerator.generateBlockPositions(playerPosition.getX(), playerPosition.getY(), playerPosition.getZ(), radius);
+        structureManager.addStructure(positions);
+
+        for(BlockPos pos : positions) {
+            world.setBlockState(pos, MagicWandMod.MARKER_BLOCK.getDefaultState());
+        }
 
         return TypedActionResult.success(playerEntity.getStackInHand(hand));
+    }
+
+    @Override
+    public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
+        Block minedBlock = state.getBlock();
+        if(minedBlock instanceof MarkerBlock) {
+            miner.sendMessage(Text.literal("MarkerBlock mined"));
+
+            List<BlockPos> structure = structureManager.getStructure(pos);
+            if(!structure.isEmpty()) {
+                miner.sendMessage(Text.literal("Structure found!"));
+
+                for(BlockPos structureBlockPos : structure) {
+                    world.setBlockState(structureBlockPos, Blocks.AIR.getDefaultState());
+                }
+            }
+        }
+
+        return super.postMine(stack, world, state, pos, miner);
     }
 }
